@@ -1,0 +1,185 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #050517;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+section, footer {
+  padding: 80px 10%;
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, #00f6ff33, #050517);
+  animation: pulse 6s infinite;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4.5rem;
+  color: #00f6ff;
+  text-shadow: 0 0 30px #00f6ff;
+}
+
+.hero-buttons {
+  margin-top: 40px;
+}
+
+.hero-buttons a {
+  padding: 14px 30px;
+  border-radius: 30px;
+  background: #00f6ff;
+  color: #000;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: 600;
+}
+
+.hero-buttons a.outline {
+  background: transparent;
+  color: #00f6ff;
+  border: 2px solid #00f6ff;
+}
+
+/* TITULOS */
+h2 {
+  text-align: center;
+  color: #00f6ff;
+  margin-bottom: 40px;
+}
+
+/* BLOCS */
+.block {
+  background: #0b0b2d;
+  border-radius: 18px;
+  border: 1px solid #00f6ff33;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.block-header {
+  padding: 22px;
+  font-weight: 600;
+  color: #00f6ff;
+}
+
+.block-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding: 0 22px;
+  transition: 0.4s ease;
+}
+
+.block.active .block-content {
+  max-height: 600px;
+  padding: 22px;
+  opacity: 1;
+}
+
+/* VIDEOS */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+video {
+  width: 100%;
+  border-radius: 14px;
+}
+
+.loop-video {
+  width: 100%;
+  max-width: 230px; /* controla o tamanho */
+  margin: 0 auto;
+  display: block;
+  border-radius: 14px;
+}
+
+
+/* PLANOS */
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.plan {
+  background: linear-gradient(145deg, #0b0b2d, #050517);
+  padding: 35px;
+  border-radius: 20px;
+  border: 1px solid #00f6ff33;
+  transition: 0.4s ease;
+  position: relative;
+}
+
+.plan:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 0 35px #00f6ff55;
+}
+
+.plan.highlight {
+  border: 2px solid #00f6ff;
+}
+
+.desc {
+  margin: 15px 0;
+  opacity: 0.85;
+}
+
+.plan ul {
+  list-style: none;
+}
+
+.plan ul li {
+  margin-bottom: 10px;
+}
+
+.note {
+  margin-top: 30px;
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* CONTATO */
+.contact {
+  background: #000;
+  text-align: center;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-links a {
+  color: #00f6ff;
+  text-decoration: none;
+}
