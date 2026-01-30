@@ -1,49 +1,63 @@
-// blocos interativos
-document.querySelectorAll(".block").forEach(block => {
-  block.addEventListener("click", () => {
-    document.querySelectorAll(".block").forEach(b => b.classList.remove("active"));
-    block.classList.add("active");
-  });
-});
+/* ===============================
+   VER MAIS / VER MENOS
+================================ */
+document.querySelectorAll('.toggle-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const card = button.closest('.service-card');
+    const details = card.querySelector('.service-details');
 
-// animação ao aparecer
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = 1;
-      entry.target.style.transform = "translateY(0)";
+    const isOpen = details.style.display === 'block';
+
+    // Fecha todos os outros
+    document.querySelectorAll('.service-details').forEach(d => {
+      d.style.display = 'none';
+    });
+
+    document.querySelectorAll('.toggle-btn').forEach(b => {
+      b.textContent = 'Ver mais';
+    });
+
+    // Abre o atual se não estava aberto
+    if (!isOpen) {
+      details.style.display = 'block';
+      button.textContent = 'Ver menos';
+
+      // rolagem suave para o card
+      card.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
   });
-}, { threshold: 0.2 });
-
-document.querySelectorAll("section").forEach(sec => {
-  sec.style.opacity = 0;
-  sec.style.transform = "translateY(40px)";
-  observer.observe(sec);
 });
 
-const canvas = document.getElementById("internet-bg");
-const ctx = canvas.getContext("2d");
+/* ===============================
+   CANVAS - INTERNET / UNIVERSO
+================================ */
+const canvas = document.getElementById('internet-bg');
+const ctx = canvas.getContext('2d');
 
 let width, height;
-let points = [];
+let particles = [];
+const particleCount = 90;
+const maxDistance = 130;
 
 function resizeCanvas() {
   width = canvas.width = window.innerWidth;
   height = canvas.height = window.innerHeight;
 }
+
+window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
 
-const POINTS_QTY = window.innerWidth < 768 ? 40 : 70;
-const MAX_DISTANCE = 140;
-
-class Point {
+/* ===== Partícula ===== */
+class Particle {
   constructor() {
     this.x = Math.random() * width;
     this.y = Math.random() * height;
-    this.vx = (Math.random() - 0.5) * 0.4;
-    this.vy = (Math.random() - 0.5) * 0.4;
+    this.vx = (Math.random() - 0.5) * 0.6;
+    this.vy = (Math.random() - 0.5) * 0.6;
+    this.radius = Math.random() * 1.5 + 0.5;
   }
 
   move() {
@@ -56,48 +70,52 @@ class Point {
 
   draw() {
     ctx.beginPath();
-    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(0,246,255,0.7)";
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(94,234,212,0.8)';
     ctx.fill();
   }
 }
 
-function init() {
-  points = [];
-  for (let i = 0; i < POINTS_QTY; i++) {
-    points.push(new Point());
+/* ===== Inicializa ===== */
+function initParticles() {
+  particles = [];
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
   }
 }
-init();
 
-function connectPoints() {
-  for (let i = 0; i < points.length; i++) {
-    for (let j = i + 1; j < points.length; j++) {
-      const dx = points[i].x - points[j].x;
-      const dy = points[i].y - points[j].y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+initParticles();
 
-      if (dist < MAX_DISTANCE) {
-        ctx.beginPath();
-        ctx.moveTo(points[i].x, points[i].y);
-        ctx.lineTo(points[j].x, points[j].y);
-        ctx.strokeStyle = `rgba(0,246,255,${1 - dist / MAX_DISTANCE})`;
+/* ===== Conexões ===== */
+function connectParticles() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < maxDistance) {
+        ctx.strokeStyle = `rgba(56,189,248,${1 - distance / maxDistance})`;
         ctx.lineWidth = 0.6;
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
         ctx.stroke();
       }
     }
   }
 }
 
+/* ===== Loop ===== */
 function animate() {
   ctx.clearRect(0, 0, width, height);
 
-  points.forEach(p => {
+  particles.forEach(p => {
     p.move();
     p.draw();
   });
 
-  connectPoints();
+  connectParticles();
   requestAnimationFrame(animate);
 }
 
