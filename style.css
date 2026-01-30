@@ -73,6 +73,14 @@ h2 {
   margin-bottom: 40px;
 }
 
+h3 {
+  font-size: 1.4rem;
+  text-align: center;
+  color: white;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
 /* BLOCS */
 .block {
   background: #0b0b2d;
@@ -87,6 +95,8 @@ h2 {
   font-weight: 600;
   color: #00f6ff;
 }
+
+
 
 .block-content {
   max-height: 0;
