@@ -29,7 +29,7 @@ section, footer {
   position: absolute;
   inset: 0;
   background: radial-gradient(circle, #00f6ff33, #050517);
-  animation: pulse 6s infinite;
+  animation: pulse 10s infinite;
   z-index: -1;
 }
 
@@ -83,7 +83,7 @@ h3 {
 
 /* BLOCS */
 .block {
-  background: #0b0b2d;
+  background: #010127;
   border-radius: 18px;
   border: 1px solid #00f6ff33;
   margin-bottom: 20px;
@@ -192,4 +192,20 @@ video {
 .contact-links a {
   color: #00f6ff;
   text-decoration: none;
+}
+
+/* UNIVERSO TECNOLÓGICO */
+.tech-universe {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#internet-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: #050517;
 }
